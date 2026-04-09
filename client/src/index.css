@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --surface-0: #2B2D3F;
+    --surface-1: #353849;
+    --surface-2: #3E4155;
+    --surface-3: #474B62;
+    --accent: #FFD60A;
+    --accent-secondary: #FF6B6B;
+    --accent-tertiary: #6C63FF;
+    --border: #1A1C2B;
+    --text: #FFFFFF;
+    --text-muted: #A0A3B8;
+    --text-dim: #6B6F85;
+    --neu-shadow: 4px 4px 0px #1A1C2B;
+    --neu-shadow-sm: 2px 2px 0px #1A1C2B;
+    --neu-shadow-hover: 1px 1px 0px #1A1C2B;
+    --sidebar-bg: #1A1C2B;
+    --accent-text: #1A1C2B;
+    --logo-filter: brightness(10);
+    --status-running: #ca8a04;
+    --status-done: #22c55e;
+    --status-error: #FF6B6B;
+    --status-warning: #eab308;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    background: var(--surface-0);
+    background-attachment: fixed;
+    color: var(--text);
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    width: 100%;
+    height: 100%;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(26, 28, 43, 0.3);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface-3);
+    border-radius: 4px;
+    border: 2px solid var(--border);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-tertiary);
+  }
+
+  ::selection {
+    background: rgba(255, 214, 10, 0.3);
+    color: var(--text);
+  }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes p-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 768px) {
+  html, body {
+    font-size: 14px;
+  }
+
+  /* Hide sidebar on mobile — show bottom nav instead */
+  .sidebar-desktop {
+    display: none !important;
+  }
+  .mobile-nav {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding-top: env(safe-area-inset-top)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (pointer: coarse) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
