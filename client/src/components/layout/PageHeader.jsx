@@ -35,14 +35,21 @@ export function PageHeader() {
   const totalProjects = sbSnap.projects.length;
 
   const initials = user?.name
-    ? user.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)
+    ? user.name
+        .split(" ")
+        .map((w) => w[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
     : user?.email?.[0]?.toUpperCase() || "?";
 
   return (
     <div className="shrink-0" style={{ padding: "28px 16px 0", borderBottom: "2px solid var(--border)" }}>
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
         <div>
-          <p style={{ fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-dim)", marginBottom: 6 }}>
+          <p
+            style={{ fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-dim)", marginBottom: 6 }}
+          >
             {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
           </p>
           <h1 style={{ fontSize: isDashboard ? 36 : 28, fontWeight: 700, color: "var(--text)", letterSpacing: "-0.02em" }}>
@@ -63,11 +70,15 @@ export function PageHeader() {
           {isDashboard && (
             <>
               <Button variant="secondary" size="sm" onClick={() => navigate("/worlds")}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
                 New World
               </Button>
               <Button size="sm" onClick={() => navigate("/storyboard")}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
                 New Project
               </Button>
             </>
@@ -76,20 +87,51 @@ export function PageHeader() {
 
           {/* User info */}
           {user && (
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginLeft: 6, padding: "6px 12px", borderRadius: 10, border: "2px solid var(--border)", background: "var(--surface-1)" }}>
-              <div style={{
-                width: 32, height: 32, borderRadius: "50%",
-                background: "var(--accent)", color: "var(--accent-text)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 13, fontWeight: 700, flexShrink: 0,
-              }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                marginLeft: 6,
+                padding: "6px 12px",
+                borderRadius: 10,
+                border: "2px solid var(--border)",
+                background: "var(--surface-1)",
+              }}
+            >
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: "50%",
+                  background: "var(--accent)",
+                  color: "var(--accent-text)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  flexShrink: 0,
+                }}
+              >
                 {initials}
               </div>
               <div className="hidden sm:block" style={{ minWidth: 0 }}>
-                <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                <p
+                  style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                >
                   {user.name || "User"}
                 </p>
-                <p style={{ fontSize: 11, fontWeight: 500, color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                <p
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 500,
+                    color: "var(--text-muted)",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
                   {user.email}
                 </p>
               </div>
