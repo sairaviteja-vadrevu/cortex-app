@@ -60,33 +60,41 @@ async def get_jwt_user(credentials: HTTPAuthorizationCredentials = Depends(secur
 
 @router.post("/auth/signup")
 async def signup(request: Request):
-    body = await request.json()
-    name = body.get("name", "").strip()
-    email = body.get("email", "").strip().lower()
-    password = body.get("password", "")
+    try:
+        body = await request.json()
+        name = body.get("name", "").strip()
+        email = body.get("email", "").strip().lower()
+        password = body.get("password", "")
 
-    if not email or not password:
-        raise HTTPException(status_code=400, detail="Email and password are required")
-    if len(password) < 6:
-        raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
+        if not email or not password:
+            raise HTTPException(status_code=400, detail="Email and password are required")
+        if len(password) < 6:
+            raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
 
-    db = get_db()
-    users_col = db["users"]
+        db = get_db()
+        users_col = db["users"]
 
-    if await users_col.find_one({"email": email}):
-        raise HTTPException(status_code=409, detail="Email already registered")
+        if await users_col.find_one({"email": email}):
+            raise HTTPException(status_code=409, detail="Email already registered")
 
-    user_id = str(uuid4())
-    await users_col.insert_one({
-        "_id": user_id,
-        "name": name or email.split("@")[0],
-        "email": email,
-        "password": _hash_password(password),
-        "createdAt": datetime.now(timezone.utc).isoformat(),
-    })
+        user_id = str(uuid4())
+        await users_col.insert_one({
+            "_id": user_id,
+            "name": name or email.split("@")[0],
+            "email": email,
+            "password": _hash_password(password),
+            "createdAt": datetime.now(timezone.utc).isoformat(),
+        })
 
-    token = _create_token(user_id, email)
-    return {"token": token, "user": {"id": user_id, "name": name or email.split("@")[0], "email": email}}
+        token = _create_token(user_id, email)
+        return {"token": token, "user": {"id": user_id, "name": name or email.split("@")[0], "email": email}}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        print(f"Signup error: {str(e)}")
+        print(traceback.format_exc())
+        raise HTTPException(status_code=500, detail=f"Signup failed: {str(e)}")
 
 
 @router.post("/auth/signin")

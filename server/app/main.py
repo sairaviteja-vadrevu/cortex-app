@@ -43,7 +43,9 @@ else:
 
 @app.get("/api/v1/health")
 async def health():
-    return {"status": "ok"}
+    from .db import _db
+    db_status = "connected" if _db is not None else "disconnected"
+    return {"status": "ok", "database": db_status}
 
 
 # Import and register storyboard routes
