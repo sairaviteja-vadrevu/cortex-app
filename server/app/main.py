@@ -21,13 +21,24 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Cotex App", version="1.0.0", lifespan=lifespan)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.cors_origin_list,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Handle CORS - if origins is "*", don't use credentials
+cors_origins = settings.cors_origin_list
+if len(cors_origins) == 1 and cors_origins[0] == "*":
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=cors_origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 
 @app.get("/api/v1/health")
