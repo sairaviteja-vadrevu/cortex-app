@@ -120,7 +120,7 @@ export default function LandingPage() {
     <div
       style={{
         minHeight: "100vh",
-        background: "var(--border)",
+        background: "var(--surface-0)",
         color: "var(--text)",
         fontFamily: "'Space Grotesk', sans-serif",
         overflowX: "hidden",
@@ -136,8 +136,8 @@ export default function LandingPage() {
           zIndex: 50,
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          background: "var(--border)",
-          borderBottom: "3px solid var(--surface-0)",
+          background: "var(--surface-0)",
+          borderBottom: "2px solid var(--border)",
         }}
       >
         <div
@@ -145,32 +145,15 @@ export default function LandingPage() {
         >
           {/* Logo */}
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div
+            <img
+              src="https://brands.galleri5.com/static/media/logo_yellow.942d7050.svg"
+              alt="g5"
               style={{
-                width: 32,
                 height: 32,
-                borderRadius: 8,
-                background: "var(--accent)",
-                border: "2px solid var(--border)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "var(--neu-shadow-sm)",
+                width: "auto",
+                filter: "var(--logo-filter)",
               }}
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--border)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
-              </svg>
-            </div>
+            />
             <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em", color: "var(--text)" }}>Cotex App</span>
           </div>
 
@@ -297,6 +280,7 @@ export default function LandingPage() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                color: "var(--accent)",
               }}
             >
               Generate Everything.
