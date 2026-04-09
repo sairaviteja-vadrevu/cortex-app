@@ -3,6 +3,7 @@
  * Uses JWT token from authStore.
  */
 import { authStore } from "../stores/authStore";
+import { getApiUrl } from "../config";
 
 const BASE = "/api/v1";
 
@@ -11,7 +12,7 @@ async function request(path, options = {}) {
   if (authStore.token) {
     headers["Authorization"] = `Bearer ${authStore.token}`;
   }
-  const res = await fetch(`${BASE}${path}`, { ...options, headers });
+  const res = await fetch(getApiUrl(`${BASE}${path}`), { ...options, headers });
   return res;
 }
 

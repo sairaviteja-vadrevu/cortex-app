@@ -29,7 +29,7 @@ export const processScreenplay = async (movieId) => {
 
     while (true) {
       await new Promise((r) => setTimeout(r, 2000));
-      const pollRes = await fetch(`/api/jobs/${jobId}`);
+      const pollRes = await apiFetch(`/api/jobs/${jobId}`);
       if (!pollRes.ok) continue;
       const job = await pollRes.json();
       if (job.status === "ready") {
@@ -231,9 +231,7 @@ export const buildShotPrompt = (movieId, sceneId, shotId) => {
   parts.push(shot.description || scene.description);
 
   if (movie.characters?.length > 0 && scene.characters?.length > 0) {
-    const sceneChars = movie.characters.filter(
-      (c) => c.description && scene.characters.some((n) => n.toLowerCase() === c.name.toLowerCase())
-    );
+    const sceneChars = movie.characters.filter((c) => c.description && scene.characters.some((n) => n.toLowerCase() === c.name.toLowerCase()));
     if (sceneChars.length > 0) {
       parts.push(`Characters: ${sceneChars.map((c) => `${c.name}: ${c.description}`).join(". ")}`);
     }
