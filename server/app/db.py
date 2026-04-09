@@ -18,6 +18,14 @@ async def connect_db() -> None:
     _client = AsyncIOMotorClient(settings.mongodb_uri)
     _db = _client[settings.mongodb_db]
 
+    # Drop legacy firebase index if it exists
+    try:
+        await _db.users.drop_index("firebase_uid_1")
+        logger.info("Dropped legacy firebase_uid index")
+    except Exception as e:
+        # Index doesn't exist or already dropped, that's fine
+        logger.debug("Could not drop firebase_uid index: %s", str(e))
+
     # Create indexes
     await _db.projects.create_indexes([
         IndexModel([("created_at", DESCENDING)]),

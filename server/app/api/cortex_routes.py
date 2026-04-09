@@ -67,15 +67,18 @@ async def signup(request: Request):
         password = body.get("password", "")
 
         if not email or not password:
-            raise HTTPException(status_code=400, detail="Email and password are required")
+            raise HTTPException(
+                status_code=400, detail="Email and password are required")
         if len(password) < 6:
-            raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
+            raise HTTPException(
+                status_code=400, detail="Password must be at least 6 characters")
 
         db = get_db()
         users_col = db["users"]
 
         if await users_col.find_one({"email": email}):
-            raise HTTPException(status_code=409, detail="Email already registered")
+            raise HTTPException(
+                status_code=409, detail="Email already registered")
 
         user_id = str(uuid4())
         await users_col.insert_one({
@@ -104,14 +107,16 @@ async def signin(request: Request):
     password = body.get("password", "")
 
     if not email or not password:
-        raise HTTPException(status_code=400, detail="Email and password are required")
+        raise HTTPException(
+            status_code=400, detail="Email and password are required")
 
     db = get_db()
     users_col = db["users"]
 
     user = await users_col.find_one({"email": email})
     if not user or not _verify_password(password, user["password"]):
-        raise HTTPException(status_code=401, detail="Invalid email or password")
+        raise HTTPException(
+            status_code=401, detail="Invalid email or password")
 
     token = _create_token(user["_id"], email)
     return {"token": token, "user": {"id": user["_id"], "name": user.get("name", ""), "email": email}}
@@ -135,7 +140,8 @@ _jobs: dict[str, dict] = {}
 # ── Replicate helpers ──
 
 def _rep_headers(wait=True):
-    h = {"Authorization": f"Bearer {settings.replicate_key}", "Content-Type": "application/json"}
+    h = {"Authorization": f"Bearer {settings.replicate_key}",
+         "Content-Type": "application/json"}
     if wait:
         h["Prefer"] = "wait"
     return h
@@ -159,7 +165,8 @@ async def _replicate_run(client, model: str, inp: dict, timeout: int = 300):
         prediction = poll.json()
 
     if prediction["status"] == "failed":
-        raise HTTPException(status_code=500, detail=prediction.get("error", "Prediction failed"))
+        raise HTTPException(status_code=500, detail=prediction.get(
+            "error", "Prediction failed"))
     if prediction["status"] == "canceled":
         raise HTTPException(status_code=500, detail="Prediction canceled")
     return prediction.get("output")
@@ -214,7 +221,8 @@ async def get_model_version(owner: str, model: str, _user: dict = Depends(get_jw
         data = resp.json()
         version = data.get("latest_version", {}).get("id")
         if not version:
-            raise HTTPException(status_code=404, detail="No version found for model")
+            raise HTTPException(
+                status_code=404, detail="No version found for model")
         return {"version": version}
 
 
@@ -230,22 +238,27 @@ async def _openai_generate(system_prompt: str, user_prompt: str = "",
     if user_prompt:
         messages.append({"role": "user", "content": user_prompt})
 
-    body = {"model": openai_model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens}
+    body = {"model": openai_model, "messages": messages,
+            "temperature": temperature, "max_tokens": max_tokens}
     if json_mode:
         body["response_format"] = {"type": "json_object"}
 
     async with httpx.AsyncClient(timeout=120) as client:
         resp = await client.post(
             "https://api.openai.com/v1/chat/completions",
-            headers={"Authorization": f"Bearer {openai_key}", "Content-Type": "application/json"},
+            headers={"Authorization": f"Bearer {openai_key}",
+                     "Content-Type": "application/json"},
             json=body,
         )
         if resp.status_code >= 400:
-            raise HTTPException(status_code=resp.status_code, detail=resp.text[:500])
+            raise HTTPException(status_code=resp.status_code,
+                                detail=resp.text[:500])
         data = resp.json()
-        text = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        text = data.get("choices", [{}])[0].get(
+            "message", {}).get("content", "")
         if not text:
-            raise HTTPException(status_code=500, detail="Empty OpenAI response")
+            raise HTTPException(
+                status_code=500, detail="Empty OpenAI response")
         return text
 
 
@@ -303,7 +316,8 @@ async def _run_processing(job_id: str, script: str):
             if match:
                 result = json.loads(match.group(1))
             else:
-                _jobs[job_id] = {"status": "error", "result": None, "error": "Failed to parse AI response"}
+                _jobs[job_id] = {"status": "error", "result": None,
+                                 "error": "Failed to parse AI response"}
                 return
         _jobs[job_id] = {"status": "ready", "result": result, "error": None}
     except Exception as e:
@@ -347,7 +361,8 @@ async def split_scenes(request: Request, _user: dict = Depends(get_jwt_user)):
         match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
         if match:
             return json.loads(match.group(1))
-        raise HTTPException(status_code=500, detail="Failed to parse response as JSON")
+        raise HTTPException(
+            status_code=500, detail="Failed to parse response as JSON")
 
 
 @router.post("/generate-questions")
@@ -355,7 +370,8 @@ async def generate_questions(request: Request, _user: dict = Depends(get_jwt_use
     body = await request.json()
     user_prompt = body.get("prompt", "")
     intent = body.get("intent", "image")
-    intent_label = {"product_video": "product video ad", "photoshoot": "product photoshoot", "video": "video"}.get(intent, "image")
+    intent_label = {"product_video": "product video ad",
+                    "photoshoot": "product photoshoot", "video": "video"}.get(intent, "image")
     system = f"""You are a creative director AI. A user wants to create a {intent_label}.
 Their request: "{user_prompt}"
 Generate exactly 3-4 clarifying questions with 3-4 options each.
@@ -372,7 +388,8 @@ async def build_prompt(request: Request, _user: dict = Depends(get_jwt_user)):
     body = await request.json()
     user_prompt = body.get("prompt", "")
     questions = body.get("questions", [])
-    answers_text = "\n\n".join(f"Q: {q['q']}\nA: {q.get('answer', '')}" for q in questions)
+    answers_text = "\n\n".join(
+        f"Q: {q['q']}\nA: {q.get('answer', '')}" for q in questions)
     system = f"""You are a prompt engineer. Create a detailed image/video generation prompt.
 User request: "{user_prompt}"
 Preferences:
@@ -389,7 +406,8 @@ async def merge_videos(request: Request, _user: dict = Depends(get_jwt_user)):
     body = await request.json()
     video1, video2 = body.get("video1"), body.get("video2")
     if not video1 or not video2:
-        raise HTTPException(status_code=400, detail="video1 and video2 URLs are required")
+        raise HTTPException(
+            status_code=400, detail="video1 and video2 URLs are required")
     async with httpx.AsyncClient(timeout=600) as client:
         output = await _replicate_run(client, "lucataco/video-merge", {"video1": video1, "video2": video2}, timeout=600)
     return {"output": output}
@@ -400,7 +418,8 @@ async def merge_audio_video(request: Request, _user: dict = Depends(get_jwt_user
     body = await request.json()
     video_url, audio_url = body.get("video_url"), body.get("audio_url")
     if not video_url or not audio_url:
-        raise HTTPException(status_code=400, detail="video_url and audio_url are required")
+        raise HTTPException(
+            status_code=400, detail="video_url and audio_url are required")
     async with httpx.AsyncClient(timeout=600) as client:
         output = await _replicate_run(client, "lucataco/video-audio-merge", {"video_file": video_url, "audio_file": audio_url}, timeout=600)
     return {"output": output}
