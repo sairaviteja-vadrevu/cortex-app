@@ -39,7 +39,7 @@ export function PageHeader() {
     : user?.email?.[0]?.toUpperCase() || "?";
 
   return (
-    <div className="shrink-0" style={{ padding: "28px 16px 0" }}>
+    <div className="shrink-0" style={{ padding: "28px 16px 0", borderBottom: "2px solid var(--border)" }}>
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
         <div>
           <p style={{ fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-dim)", marginBottom: 6 }}>

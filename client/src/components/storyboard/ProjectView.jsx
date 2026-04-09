@@ -66,7 +66,7 @@ export function ProjectView() {
     <div className="flex-1 overflow-auto">
       <div className="p-4 sm:p-8 pb-24">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-4 mb-6 pb-6" style={{ borderBottom: "2px solid var(--border)" }}>
           <button onClick={() => navigate("/storyboard")} className="p-2 rounded-lg cursor-pointer" style={{ color: "var(--text-muted)" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           </button>
