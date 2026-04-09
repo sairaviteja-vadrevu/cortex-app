@@ -171,7 +171,7 @@ export default function LandingPage() {
                 <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
               </svg>
             </div>
-            <span className="text-[var(--text)]" style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em" }}>
+            <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em", color: "var(--text)" }}>
               Cotex App
             </span>
           </div>
@@ -182,8 +182,9 @@ export default function LandingPage() {
               <button
                 key={label}
                 onClick={() => scrollTo(label.toLowerCase().replace(/\s+/g, "-"))}
-                className="text-[var(--text-muted)] hover:text-[var(--text)] transition-colors"
-                style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, fontWeight: 500, fontFamily: "inherit" }}
+                style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, fontWeight: 500, fontFamily: "inherit", color: "var(--text-muted)", transition: "color 0.2s" }}
+                onMouseEnter={(e) => e.currentTarget.style.color = "var(--text)"}
+                onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-muted)"}
               >
                 {label}
               </button>
@@ -265,13 +266,12 @@ export default function LandingPage() {
                 boxShadow: "0 0 8px rgba(255,214,10,0.6)",
               }}
             />
-            <span className="text-[var(--text-muted)]">AI-Powered Creative Studio</span>
+            <span style={{ color: "var(--text-muted)" }}>AI-Powered Creative Studio</span>
           </div>
 
           {/* Heading */}
           <h1
-            className="text-[var(--text)]"
-            style={{ fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.04em", margin: 0 }}
+            style={{ fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.04em", margin: 0, color: "var(--text)" }}
           >
             Build Worlds.{"\n"}
             <br />
@@ -282,6 +282,7 @@ export default function LandingPage() {
                 background: "linear-gradient(135deg, var(--accent), var(--accent-secondary))",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
               }}
             >
               Generate Everything.
@@ -289,7 +290,7 @@ export default function LandingPage() {
           </h1>
 
           {/* Sub */}
-          <p className="text-[var(--text-muted)]" style={{ fontSize: 18, lineHeight: 1.7, maxWidth: 560, margin: 0 }}>
+          <p style={{ fontSize: 18, lineHeight: 1.7, maxWidth: 560, margin: 0, color: "var(--text-muted)" }}>
             The AI-powered creative studio for world building, film production, and generative media.
           </p>
 
@@ -315,7 +316,6 @@ export default function LandingPage() {
             </button>
             <button
               onClick={() => scrollTo("features")}
-              className="text-[var(--text)] hover:opacity-90 transition-colors"
               style={{
                 padding: "14px 32px",
                 borderRadius: 10,
@@ -327,7 +327,10 @@ export default function LandingPage() {
                 fontFamily: "inherit",
                 boxShadow: "var(--neu-shadow-sm)",
                 color: "var(--text)",
+                transition: "opacity 0.2s",
               }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = "0.9"}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
             >
               Explore Features
             </button>
@@ -342,7 +345,7 @@ export default function LandingPage() {
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57" }} />
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#febc2e" }} />
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840" }} />
-              <span className="text-[var(--text-dim)]" style={{ marginLeft: 12, fontSize: 12, fontWeight: 500 }}>
+              <span style={{ marginLeft: 12, fontSize: 12, fontWeight: 500, color: "var(--text-dim)" }}>
                 Cotex App - World Editor
               </span>
             </div>
@@ -423,10 +426,10 @@ export default function LandingPage() {
       {/* ========== FEATURES ========== */}
       <section id="features" style={{ padding: "100px 24px", maxWidth: 1100, margin: "0 auto", position: "relative" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <h2 className="text-[var(--text)]" style={{ fontSize: 40, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, marginBottom: 14 }}>
+          <h2 style={{ fontSize: 40, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, marginBottom: 14, color: "var(--text)" }}>
             Everything You Need
           </h2>
-          <p className="text-[var(--text-muted)]" style={{ fontSize: 16, maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>
+          <p style={{ fontSize: 16, maxWidth: 480, margin: "0 auto", lineHeight: 1.7, color: "var(--text-muted)" }}>
             A complete creative toolkit powered by the most advanced AI models, built for filmmakers, world builders, and visual storytellers.
           </p>
         </div>
@@ -452,10 +455,10 @@ export default function LandingPage() {
               >
                 {f.icon}
               </div>
-              <h3 className="text-[var(--text)]" style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>
+              <h3 style={{ fontSize: 17, fontWeight: 700, margin: 0, color: "var(--text)" }}>
                 {f.title}
               </h3>
-              <p className="text-[var(--text-muted)]" style={{ fontSize: 14, lineHeight: 1.65, margin: 0 }}>
+              <p style={{ fontSize: 14, lineHeight: 1.65, margin: 0, color: "var(--text-muted)" }}>
                 {f.desc}
               </p>
             </div>
@@ -466,10 +469,10 @@ export default function LandingPage() {
       {/* ========== SHOWCASE (mockup section) ========== */}
       <section id="showcase" style={{ padding: "80px 24px", maxWidth: 1100, margin: "0 auto", position: "relative" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <h2 className="text-[var(--text)]" style={{ fontSize: 40, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, marginBottom: 14 }}>
+          <h2 style={{ fontSize: 40, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, marginBottom: 14, color: "var(--text)" }}>
             See It In Action
           </h2>
-          <p className="text-[var(--text-muted)]" style={{ fontSize: 16, maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>
+          <p style={{ fontSize: 16, maxWidth: 480, margin: "0 auto", lineHeight: 1.7, color: "var(--text-muted)" }}>
             From script to screen in minutes. Watch how Cotex App transforms your creative vision.
           </p>
         </div>
@@ -500,7 +503,7 @@ export default function LandingPage() {
                   <polygon points="9.5 7.5 16.5 12 9.5 16.5" fill="var(--accent)" />
                 </svg>
               </div>
-              <span className="text-[var(--text-muted)]" style={{ fontSize: 14, fontWeight: 500 }}>
+              <span style={{ fontSize: 14, fontWeight: 500, color: "var(--text-muted)" }}>
                 Interactive Demo Coming Soon
               </span>
             </div>
@@ -511,10 +514,10 @@ export default function LandingPage() {
       {/* ========== HOW IT WORKS ========== */}
       <section id="how-it-works" style={{ padding: "100px 24px", maxWidth: 1000, margin: "0 auto", position: "relative" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <h2 className="text-[var(--text)]" style={{ fontSize: 40, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, marginBottom: 14 }}>
+          <h2 style={{ fontSize: 40, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, marginBottom: 14, color: "var(--text)" }}>
             How It Works
           </h2>
-          <p className="text-[var(--text-muted)]" style={{ fontSize: 16, maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>
+          <p style={{ fontSize: 16, maxWidth: 480, margin: "0 auto", lineHeight: 1.7, color: "var(--text-muted)" }}>
             Three simple steps from idea to finished creative asset.
           </p>
         </div>
@@ -566,10 +569,10 @@ export default function LandingPage() {
               >
                 <span style={{ color: "var(--accent)" }}>{s.num}</span>
               </div>
-              <h3 className="text-[var(--text)]" style={{ fontSize: 20, fontWeight: 700, margin: 0, marginBottom: 8 }}>
+              <h3 style={{ fontSize: 20, fontWeight: 700, margin: 0, marginBottom: 8, color: "var(--text)" }}>
                 {s.title}
               </h3>
-              <p className="text-[var(--text-muted)]" style={{ fontSize: 14, lineHeight: 1.65, margin: 0, maxWidth: 240 }}>
+              <p style={{ fontSize: 14, lineHeight: 1.65, margin: 0, maxWidth: 240, color: "var(--text-muted)" }}>
                 {s.desc}
               </p>
               {/* Arrow between steps */}
@@ -591,12 +594,12 @@ export default function LandingPage() {
           {/* Glow */}
           <div style={{ ...glowSpot("rgba(255,214,10,0.08)", 500), top: -150, left: "50%", transform: "translateX(-50%)" }} />
           <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
-            <h2 className="text-[var(--text)]" style={{ fontSize: 36, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, lineHeight: 1.2 }}>
+            <h2 style={{ fontSize: 36, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, lineHeight: 1.2, color: "var(--text)" }}>
               Ready to create something
               <br />
               extraordinary?
             </h2>
-            <p className="text-[var(--text-muted)]" style={{ fontSize: 16, margin: 0, maxWidth: 400, lineHeight: 1.65 }}>
+            <p style={{ fontSize: 16, margin: 0, maxWidth: 400, lineHeight: 1.65, color: "var(--text-muted)" }}>
               Join creators, filmmakers, and storytellers who are building the future of media with AI.
             </p>
             <button
@@ -628,15 +631,16 @@ export default function LandingPage() {
           {footerCols.map((col) => (
             <div key={col.heading}>
               <h4
-                className="text-[var(--text)]"
-                style={{ fontSize: 14, fontWeight: 700, margin: 0, marginBottom: 16, letterSpacing: "0.02em", textTransform: "uppercase" }}
+                style={{ fontSize: 14, fontWeight: 700, margin: 0, marginBottom: 16, letterSpacing: "0.02em", textTransform: "uppercase", color: "var(--text)" }}
               >
                 {col.heading}
               </h4>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                 {col.links.map((link) => (
                   <li key={link}>
-                    <span className="text-[var(--text-muted)] hover:text-[var(--text)] transition-colors" style={{ fontSize: 14, cursor: "pointer" }}>
+                    <span style={{ fontSize: 14, cursor: "pointer", color: "var(--text-muted)", transition: "color 0.2s" }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = "var(--text)"}
+                      onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-muted)"}>
                       {link}
                     </span>
                   </li>
@@ -648,10 +652,10 @@ export default function LandingPage() {
         <div
           style={{ borderTop: "3px solid var(--surface-0)", paddingTop: 24, display: "flex", alignItems: "center", justifyContent: "space-between" }}
         >
-          <span className="text-[var(--text-dim)]" style={{ fontSize: 13 }}>
+          <span style={{ fontSize: 13, color: "var(--text-dim)" }}>
             &copy; 2026 Cotex App. All rights reserved.
           </span>
-          <span className="text-[var(--surface-3)]" style={{ fontSize: 12 }}>
+          <span style={{ fontSize: 12, color: "var(--text-dim)" }}>
             Built with AI
           </span>
         </div>
