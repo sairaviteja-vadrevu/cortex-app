@@ -1,17 +1,24 @@
 import { proxy } from "valtio";
+import { getApiUrl } from "../config";
 
 const TOKEN_KEY = "g5-token";
 const USER_KEY = "g5-user";
 
 function loadToken() {
-  try { return localStorage.getItem(TOKEN_KEY) || null; } catch { return null; }
+  try {
+    return localStorage.getItem(TOKEN_KEY) || null;
+  } catch {
+    return null;
+  }
 }
 
 function loadUser() {
   try {
     const u = localStorage.getItem(USER_KEY);
     return u ? JSON.parse(u) : null;
-  } catch { return null; }
+  } catch {
+    return null;
+  }
 }
 
 export const authStore = proxy({
@@ -27,14 +34,18 @@ export function isAuthenticated() {
 
 // Callbacks that other stores register to reload user-scoped data
 const _onAuthChange = [];
-export function onAuthChange(fn) { _onAuthChange.push(fn); }
-function _notifyAuthChange() { _onAuthChange.forEach((fn) => fn()); }
+export function onAuthChange(fn) {
+  _onAuthChange.push(fn);
+}
+function _notifyAuthChange() {
+  _onAuthChange.forEach((fn) => fn());
+}
 
 export async function signup(name, email, password) {
   authStore.loading = true;
   authStore.error = null;
   try {
-    const res = await fetch("/api/auth/signup", {
+    const res = await fetch(getApiUrl("/api/auth/signup"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
@@ -62,7 +73,7 @@ export async function signin(email, password) {
   authStore.loading = true;
   authStore.error = null;
   try {
-    const res = await fetch("/api/auth/signin", {
+    const res = await fetch(getApiUrl("/api/auth/signin"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

@@ -1,17 +1,20 @@
 import { authStore, signout } from "../stores/authStore";
+import { getApiUrl } from "../config";
 
 /**
  * Wrapper around fetch that auto-injects the JWT Authorization header.
  * If a 401 is returned, the user is signed out automatically.
  */
 export async function apiFetch(url, options = {}) {
+  // Convert relative URLs to absolute URLs using config
+  const fullUrl = url.startsWith("http") ? url : getApiUrl(url);
   const headers = { ...options.headers };
 
   if (authStore.token) {
     headers["Authorization"] = `Bearer ${authStore.token}`;
   }
 
-  const res = await fetch(url, { ...options, headers });
+  const res = await fetch(fullUrl, { ...options, headers });
 
   if (res.status === 401) {
     signout();
@@ -26,7 +29,7 @@ export const kimodoApi = {
    * Get Kimodo service status
    */
   async getStatus() {
-    const res = await fetch(`${API_BASE}/api/kimodo/status`);
+    const res = await fetch(getApiUrl("/api/kimodo/status"));
     if (!res.ok) throw new Error("Failed to get Kimodo status");
     return res.json();
   },
@@ -35,7 +38,7 @@ export const kimodoApi = {
    * List available Kimodo models
    */
   async listModels() {
-    const res = await fetch(`${API_BASE}/api/kimodo/models`);
+    const res = await fetch(getApiUrl("/api/kimodo/models"));
     if (!res.ok) throw new Error("Failed to list models");
     return res.json();
   },
@@ -44,7 +47,7 @@ export const kimodoApi = {
    * Get motion generation examples
    */
   async getExamples() {
-    const res = await fetch(`${API_BASE}/api/kimodo/examples`);
+    const res = await fetch(getApiUrl("/api/kimodo/examples"));
     if (!res.ok) throw new Error("Failed to get examples");
     return res.json();
   },
@@ -59,7 +62,7 @@ export const kimodoApi = {
    * @param {string} [params.output_format] - Output format (glb, fbx, bvh)
    */
   async generateMotion({ prompt, duration = 5.0, model = null, constraints = null, output_format = "glb" }) {
-    const res = await fetch(`${API_BASE}/api/kimodo/generate`, {
+    const res = await fetch(getApiUrl("/api/kimodo/generate"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +88,7 @@ export const kimodoApi = {
    * Generate motion and get as downloadable file
    */
   async generateMotionDownload({ prompt, duration = 5.0, model = null, constraints = null, output_format = "glb" }) {
-    const res = await fetch(`${API_BASE}/api/kimodo/generate/download`, {
+    const res = await fetch(getApiUrl("/api/kimodo/generate/download"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
