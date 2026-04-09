@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     # Server
     host: str = "0.0.0.0"
     port: int = 8000
-    cors_origins: str = "http://localhost:5173,http://localhost:3000"
+    cors_origins: str = "http://localhost:5173,http://localhost:3000,https://g5cortex.netlify.app"
 
     # LLM settings
     llm_timeout_scene: int = 120
@@ -41,7 +41,8 @@ class Settings(BaseSettings):
     def cors_origin_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
+    model_config = {"env_file": ".env",
+                    "env_file_encoding": "utf-8", "extra": "ignore"}
 
 
 settings = Settings()
