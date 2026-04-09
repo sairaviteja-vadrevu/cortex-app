@@ -171,9 +171,7 @@ export default function LandingPage() {
                 <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
               </svg>
             </div>
-            <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em", color: "var(--text)" }}>
-              Cotex App
-            </span>
+            <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em", color: "var(--text)" }}>Cotex App</span>
           </div>
 
           {/* Center links */}
@@ -182,9 +180,18 @@ export default function LandingPage() {
               <button
                 key={label}
                 onClick={() => scrollTo(label.toLowerCase().replace(/\s+/g, "-"))}
-                style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, fontWeight: 500, fontFamily: "inherit", color: "var(--text-muted)", transition: "color 0.2s" }}
-                onMouseEnter={(e) => e.currentTarget.style.color = "var(--text)"}
-                onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-muted)"}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  fontFamily: "inherit",
+                  color: "var(--text-muted)",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
               >
                 {label}
               </button>
@@ -271,7 +278,14 @@ export default function LandingPage() {
 
           {/* Heading */}
           <h1
-            style={{ fontSize: "clamp(40px, 6vw, 72px)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.04em", margin: 0, color: "var(--text)" }}
+            style={{
+              fontSize: "clamp(40px, 6vw, 72px)",
+              fontWeight: 800,
+              lineHeight: 1.05,
+              letterSpacing: "-0.04em",
+              margin: 0,
+              color: "var(--text)",
+            }}
           >
             Build Worlds.{"\n"}
             <br />
@@ -329,8 +343,8 @@ export default function LandingPage() {
                 color: "var(--text)",
                 transition: "opacity 0.2s",
               }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = "0.9"}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
               Explore Features
             </button>
@@ -345,9 +359,7 @@ export default function LandingPage() {
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57" }} />
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#febc2e" }} />
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840" }} />
-              <span style={{ marginLeft: 12, fontSize: 12, fontWeight: 500, color: "var(--text-dim)" }}>
-                Cotex App - World Editor
-              </span>
+              <span style={{ marginLeft: 12, fontSize: 12, fontWeight: 500, color: "var(--text-dim)" }}>Cotex App - World Editor</span>
             </div>
             {/* Gradient body */}
             <div
@@ -455,12 +467,8 @@ export default function LandingPage() {
               >
                 {f.icon}
               </div>
-              <h3 style={{ fontSize: 17, fontWeight: 700, margin: 0, color: "var(--text)" }}>
-                {f.title}
-              </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.65, margin: 0, color: "var(--text-muted)" }}>
-                {f.desc}
-              </p>
+              <h3 style={{ fontSize: 17, fontWeight: 700, margin: 0, color: "var(--text)" }}>{f.title}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.65, margin: 0, color: "var(--text-muted)" }}>{f.desc}</p>
             </div>
           ))}
         </div>
@@ -503,9 +511,7 @@ export default function LandingPage() {
                   <polygon points="9.5 7.5 16.5 12 9.5 16.5" fill="var(--accent)" />
                 </svg>
               </div>
-              <span style={{ fontSize: 14, fontWeight: 500, color: "var(--text-muted)" }}>
-                Interactive Demo Coming Soon
-              </span>
+              <span style={{ fontSize: 14, fontWeight: 500, color: "var(--text-muted)" }}>Interactive Demo Coming Soon</span>
             </div>
           </div>
         </div>
@@ -514,9 +520,7 @@ export default function LandingPage() {
       {/* ========== HOW IT WORKS ========== */}
       <section id="how-it-works" style={{ padding: "100px 24px", maxWidth: 1000, margin: "0 auto", position: "relative" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <h2 style={{ fontSize: 40, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, marginBottom: 14, color: "var(--text)" }}>
-            How It Works
-          </h2>
+          <h2 style={{ fontSize: 40, fontWeight: 800, letterSpacing: "-0.03em", margin: 0, marginBottom: 14, color: "var(--text)" }}>How It Works</h2>
           <p style={{ fontSize: 16, maxWidth: 480, margin: "0 auto", lineHeight: 1.7, color: "var(--text-muted)" }}>
             Three simple steps from idea to finished creative asset.
           </p>
@@ -569,12 +573,8 @@ export default function LandingPage() {
               >
                 <span style={{ color: "var(--accent)" }}>{s.num}</span>
               </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, margin: 0, marginBottom: 8, color: "var(--text)" }}>
-                {s.title}
-              </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.65, margin: 0, maxWidth: 240, color: "var(--text-muted)" }}>
-                {s.desc}
-              </p>
+              <h3 style={{ fontSize: 20, fontWeight: 700, margin: 0, marginBottom: 8, color: "var(--text)" }}>{s.title}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.65, margin: 0, maxWidth: 240, color: "var(--text-muted)" }}>{s.desc}</p>
               {/* Arrow between steps */}
               {i < steps.length - 1 && (
                 <div style={{ position: "absolute", top: 28, right: -8, zIndex: 3 }}>
@@ -631,16 +631,26 @@ export default function LandingPage() {
           {footerCols.map((col) => (
             <div key={col.heading}>
               <h4
-                style={{ fontSize: 14, fontWeight: 700, margin: 0, marginBottom: 16, letterSpacing: "0.02em", textTransform: "uppercase", color: "var(--text)" }}
+                style={{
+                  fontSize: 14,
+                  fontWeight: 700,
+                  margin: 0,
+                  marginBottom: 16,
+                  letterSpacing: "0.02em",
+                  textTransform: "uppercase",
+                  color: "var(--text)",
+                }}
               >
                 {col.heading}
               </h4>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                 {col.links.map((link) => (
                   <li key={link}>
-                    <span style={{ fontSize: 14, cursor: "pointer", color: "var(--text-muted)", transition: "color 0.2s" }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = "var(--text)"}
-                      onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-muted)"}>
+                    <span
+                      style={{ fontSize: 14, cursor: "pointer", color: "var(--text-muted)", transition: "color 0.2s" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+                    >
                       {link}
                     </span>
                   </li>
@@ -652,12 +662,8 @@ export default function LandingPage() {
         <div
           style={{ borderTop: "3px solid var(--surface-0)", paddingTop: 24, display: "flex", alignItems: "center", justifyContent: "space-between" }}
         >
-          <span style={{ fontSize: 13, color: "var(--text-dim)" }}>
-            &copy; 2026 Cotex App. All rights reserved.
-          </span>
-          <span style={{ fontSize: 12, color: "var(--text-dim)" }}>
-            Built with AI
-          </span>
+          <span style={{ fontSize: 13, color: "var(--text-dim)" }}>&copy; 2026 Cotex App. All rights reserved.</span>
+          <span style={{ fontSize: 12, color: "var(--text-dim)" }}>Built with AI</span>
         </div>
       </footer>
     </div>
