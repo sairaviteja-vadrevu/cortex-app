@@ -62,9 +62,11 @@ async def connect_db() -> None:
         {"$set": {"status": "error", "error_message": "Server restarted during processing"}}
     )
     if result.modified_count:
-        logger.warning("Marked %d stuck processing projects as error", result.modified_count)
+        logger.warning(
+            "Marked %d stuck processing projects as error", result.modified_count)
 
-    logger.info("Connected to MongoDB at %s, db=%s", settings.mongodb_uri, settings.mongodb_db)
+    logger.info("Connected to MongoDB at %s, db=%s",
+                settings.mongodb_uri, settings.mongodb_db)
 
 
 async def close_db() -> None:
@@ -80,5 +82,6 @@ async def close_db() -> None:
 def get_db() -> AsyncIOMotorDatabase:
     """Return the current database instance."""
     if _db is None:
-        raise RuntimeError("Database not initialized. Call connect_db() first.")
+        raise RuntimeError(
+            "Database not initialized. Call connect_db() first.")
     return _db
